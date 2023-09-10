@@ -19,14 +19,52 @@
       var pass = document.getElementById("password").value;
       var cpass = document.getElementById("c_password").value;
       if (pass == cpass) {
+        fetch("http://localhost:8000/users", {
+          // Adding method type
+          method: "POST",
+
+          // Adding body or contents to send
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: pass,
+            cart: [],
+          }),
+
+          // Adding headers to the request
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        })
+          // Converting to JSON
+          .then((response) => response.json())
+          .then((data) => {
+            fetch("http://localhost:8000/cart", {
+              // Adding method type
+              method: "POST",
+
+              // Adding body or contents to send
+              body: JSON.stringify({
+                email: email,
+                id: data.id,
+                cart: [],
+              }),
+
+              // Adding headers to the request
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
+              // Converting to JSON
+              .then((response) => response.json());
+          });
+        // localStorage.setItem("email", email);
+        // localStorage.setItem("pass", pass);
+        // localStorage.setItem("name", name);
+        // open("./Login.html", "_self");
         alert("User registered!");
-        localStorage.setItem("email", email);
-        localStorage.setItem("pass", pass);
-        localStorage.setItem("name", name);
-        open("./Login.html","_self");
-      }
-      else{
-        alert("Password and Confirm password doesn't match")
+      } else {
+        alert("Password and Confirm password doesn't match");
       }
     }
   </script>
@@ -34,7 +72,7 @@
     <div class="container mt-4" style="width: 50%; background-color: bisque">
       <h1>Register User</h1>
       <br />
-      <form onsubmit=register(event) method="post">
+      <form onsubmit="register(event)" method="post">
         <label for="name" class="form-label">Name</label>
         <input
           type="text"
