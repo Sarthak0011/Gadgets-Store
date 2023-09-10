@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <script>
+    function login(event){
+      event.preventDefault();
+
+      var storedEmail = localStorage.getItem("email");
+      var storedPass = localStorage.getItem("pass");
+
+      var email = document.getElementById("email").value;
+      var pass = document.getElementById("password").value;
+
+      if(storedEmail == email && storedPass == pass){
+        alert("LogIn successful!");
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("pass", pass);
+        open("./index.html", "_self");
+      }
+      else{
+        alert("Invalid credentials");
+      }
+    }
+  </script>
+  <body style="background-color: beige">
+    <div class="container mt-4" style="width: 50%; background-color: bisque">
+      <h1>Login User</h1>
+      <br />
+      <form onsubmit=login(event)>
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" id="email" name="email" class="form-control" />
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="pass" class="form-control" />
+        <p>Don't have an account? <a href="Register.html">Click here</a></p>
+        <div style="text-align: center">
+          <button type="submit" class="btn btn-success mt-4">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
